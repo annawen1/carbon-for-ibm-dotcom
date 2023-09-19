@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020, 2022
+ * Copyright IBM Corp. 2020, 2023
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -31,7 +31,7 @@ export const Default = (args) => {
     <>
       <div
         className={`grid-alignment ${
-          gridKnobs === '3 columns' ? 'cds--col-lg-3' : 'cds--col-lg-4'
+          gridKnobs === '3 columns' ? 'bx--col-lg-3' : 'bx--col-lg-4'
         }`}
         style={{ paddingRight: '1rem' }}>
         <C4DFilterPanelComposite>
@@ -40,11 +40,13 @@ export const Default = (args) => {
           </C4DFilterPanelHeading>
           <C4DFilterGroup>
             <C4DFilterGroupItem title-text="Product types">
-              <C4DFilterPanelCheckbox value="API">API</C4DFilterPanelCheckbox>
-              <C4DFilterPanelCheckbox value="Application">
+              <C4DFilterPanelCheckbox value="API" checked>
+                API
+              </C4DFilterPanelCheckbox>
+              <C4DFilterPanelCheckbox value="Application" checked>
                 Application
               </C4DFilterPanelCheckbox>
-              <C4DFilterPanelCheckbox value="Data Set">
+              <C4DFilterPanelCheckbox value="Data Set" checked>
                 Data Set
               </C4DFilterPanelCheckbox>
               <C4DFilterPanelCheckbox value="Free Trial">
