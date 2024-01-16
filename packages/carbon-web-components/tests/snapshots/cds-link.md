@@ -6,7 +6,7 @@
 
 ```
 <a
-  class="cds--link"
+  class="cds--link cds--link--md"
   href="about:blank"
   id="link"
   part="link"
@@ -29,18 +29,11 @@
 
 ```
 <a
-  class="cds--link"
-  download="file-name-foo"
+  class="cds--link cds--link--md"
   href="about:blank"
-  hreflang="en"
   id="link"
   part="link"
-  ping="about:blank"
-  rel="noopener"
-  role="button"
   tabindex="0"
-  target="_blank"
-  type="text/plain"
 >
   <slot>
   </slot>
@@ -59,7 +52,7 @@
 
 ```
 <p
-  class="cds--link cds--link--disabled"
+  class="cds--link cds--link--disabled cds--link--md"
   id="link"
   part="link"
 >

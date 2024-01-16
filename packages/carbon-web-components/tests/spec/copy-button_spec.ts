@@ -11,8 +11,8 @@ import { render } from 'lit';
 import { Default } from '../../src/components/copy-button/copy-button.stories';
 
 const template = (props?) =>
-  Default({
-    'cds-copy-button': props,
+  Default.render({
+    ...props,
   });
 
 describe('cds-copy-button', function () {

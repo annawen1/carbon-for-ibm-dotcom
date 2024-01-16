@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2023
+ * Copyright IBM Corp. 2019, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -9,11 +9,11 @@
 
 import { render } from 'lit';
 import { PROGRESS_STEP_STAT } from '../../src/components/progress-indicator/progress-step';
-import { Playground } from '../../src/components/progress-indicator/progress-indicator-story';
+import { Playground } from '../../src/components/progress-indicator/progress-indicator.stories';
 
 const template = (props?) =>
-  Playground({
-    'cds-progress-step': props,
+  Playground.render({
+    ...props,
   });
 
 describe('cds-progress-step', function () {

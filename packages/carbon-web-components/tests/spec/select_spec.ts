@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020, 2023
+ * Copyright IBM Corp. 2020, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -13,7 +13,7 @@ import { INPUT_SIZE } from '../../src/components/text-input/text-input';
 import CDSSelect from '../../src/components/select/select';
 import CDSSelectItem from '../../src/components/select/select-item';
 import CDSSelectItemGroup from '../../src/components/select/select-item-group';
-import { Playground } from '../../src/components/select/select-story';
+import { Playground } from '../../src/components/select/select.stories';
 
 /**
  * @param formData A `FormData` instance.
@@ -29,8 +29,8 @@ const getValues = (formData: FormData) => {
 };
 
 const template = (props?) =>
-  Playground({
-    'cds-select': props,
+  Playground.render({
+    ...props,
   });
 
 xdescribe('cds-select', function () {

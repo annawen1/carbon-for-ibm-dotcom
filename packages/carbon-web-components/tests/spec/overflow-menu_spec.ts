@@ -13,8 +13,8 @@ import CDSOverflowMenu from '../../src/components/overflow-menu/overflow-menu';
 import { Playground } from '../../src/components/overflow-menu/overflow-menu.stories';
 
 const template = (props?) =>
-  Playground({
-    'cds-overflow-menu': props,
+  Playground.render({
+    ...props,
   });
 
 describe('cds-overflow-menu', function () {

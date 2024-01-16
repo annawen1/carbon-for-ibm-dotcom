@@ -12,8 +12,8 @@ import '../../src/components/link/link';
 import { PairedWithIcon } from '../../src/components/link/link.stories';
 
 const template = (props?) =>
-  (PairedWithIcon = {
-    'cds-link': props,
+  PairedWithIcon.render({
+    ...props,
   });
 
 describe('cds-link', function () {

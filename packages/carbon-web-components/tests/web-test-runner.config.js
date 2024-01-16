@@ -1,0 +1,13 @@
+//
+// Copyright IBM Corp. 2023, 2024
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+const { esbuildPlugin } = require('@web/dev-server-esbuild');
+
+module.export = {
+  files: ['tests/**/*_spec.ts'],
+  plugins: [esbuildPlugin({ ts: true })],
+};

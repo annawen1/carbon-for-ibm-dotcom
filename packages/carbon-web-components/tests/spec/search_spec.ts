@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2023
+ * Copyright IBM Corp. 2019, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -11,11 +11,11 @@ import { render } from 'lit';
 import EventManager from '../utils/event-manager';
 import { INPUT_SIZE } from '../../src/components/text-input/text-input';
 import CDSSearch from '../../src/components/search/search';
-import { Playground } from '../../src/components/search/search-story';
+import { Playground } from '../../src/components/search/search.stories';
 
 const template = (props?) =>
-  Playground({
-    'cds-search': props,
+  Playground.render({
+    ...props,
   });
 
 describe('cds-search', function () {

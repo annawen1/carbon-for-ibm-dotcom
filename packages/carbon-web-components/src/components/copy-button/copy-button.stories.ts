@@ -41,6 +41,13 @@ const meta: Meta = {
       page: storyDocs,
     },
   },
+  args: defaultArgs,
+};
+
+export const Default = {
+  parameters: {
+    controls: { exclude: /(.*?)/ },
+  },
   render: ({ feedbackText, feedbackTimeout, onClick, iconDescription }) => html`
     <cds-copy-button
       feedback="${ifDefined(feedbackText)}"
@@ -49,13 +56,6 @@ const meta: Meta = {
       ${iconDescription}
     </cds-copy-button>
   `,
-  args: defaultArgs,
-};
-
-export const Default = {
-  parameters: {
-    controls: { exclude: /(.*?)/ },
-  },
 };
 
 export const Playground = {
