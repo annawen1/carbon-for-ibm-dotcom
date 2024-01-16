@@ -121,6 +121,7 @@
     "@types/jasmine": "^3.10.2",
     "@types/jest": "^29.2.3",
     "@types/lodash-es": "^4.17.5",
+    "@types/mocha": "^10.0.6",
     "@types/node": "^18.11.9",
     "@types/webpack-env": "^1.16.3",
     "@web/dev-server-esbuild": "^1.0.1",

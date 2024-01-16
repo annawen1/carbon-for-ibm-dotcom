@@ -5,9 +5,9 @@
 // LICENSE file in the root directory of this source tree.
 //
 
-const { esbuildPlugin } = require('@web/dev-server-esbuild');
+import { esbuildPlugin } from '@web/dev-server-esbuild';
 
-module.export = {
+export default {
   files: ['tests/**/*_spec.ts'],
   plugins: [esbuildPlugin({ ts: true })],
 };
