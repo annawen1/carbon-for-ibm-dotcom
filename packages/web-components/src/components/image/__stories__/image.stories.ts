@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020, 2023
+ * Copyright IBM Corp. 2020, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -9,8 +9,6 @@
 
 import '../image';
 import { html } from 'lit';
-import { ifDefined } from 'lit/directives/if-defined.js';
-import { select, boolean } from '@storybook/addon-knobs';
 // eslint-disable-next-line sort-imports
 import imgLg16x9 from '../../../../.storybook/storybook-images/assets/720/fpo--16x9--720x405--005.jpg';
 import imgLg2x1 from '../../../../.storybook/storybook-images/assets/720/fpo--2x1--720x360--005.jpg';
@@ -28,8 +26,6 @@ import imgSm3x2 from '../../../../.storybook/storybook-images/assets/320/fpo--3x
 import imgSm4x3 from '../../../../.storybook/storybook-images/assets/320/fpo--4x3--320x160--004.jpg';
 import imgSm1x1 from '../../../../.storybook/storybook-images/assets/320/fpo--1x1--320x320--005.jpg';
 import chartSvg from './chart-svg.js';
-import readme from './README.stories.mdx';
-import textNullable from '../../../../.storybook/knob-text-nullable';
 import { LIGHTBOX_CONTRAST } from '../image';
 
 const contrasts = {
@@ -54,47 +50,41 @@ const srcsets = {
   '1x1': [imgSm1x1, imgMd1x1, imgLg1x1],
 };
 
-export const Default = (args) => {
-  const {
-    alt,
-    defaultSrc,
-    heading,
-    copy,
-    border,
-    lightbox,
-    lightboxContrast,
-    longDescription,
-  } = args?.['c4d-image'] ?? {};
-  // TODO: See if we can fix unwanted `&` to `&amp` conversion upon changing the select knob
-  const srcset = srcsets[defaultSrc?.replace(/&amp;/, '&')];
-  return html`
-    <c4d-image
-      alt="${ifDefined(alt)}"
-      heading="${ifDefined(heading)}"
-      default-src="${ifDefined(defaultSrc)}"
-      ?border=${border}
-      ?lightbox="${lightbox}"
-      lightbox-contrast="${lightboxContrast}"
-      copy="${ifDefined(copy)}">
-      ${!longDescription
-        ? undefined
-        : html` <div slot="long-description">${longDescription}</div> `}
-      ${!srcset
-        ? undefined
-        : html`
-            <c4d-image-item media="(min-width: 672px)" srcset="${srcset[2]}">
-            </c4d-image-item>
-            <c4d-image-item media="(min-width: 400px)" srcset="${srcset[1]}">
-            </c4d-image-item>
-            <c4d-image-item media="(min-width: 320px)" srcset="${srcset[0]}">
-            </c4d-image-item>
-          `}
-    </c4d-image>
-  `;
+const controls = {
+  defaultSrc: {
+    control: 'select',
+    description: 'Default image (default-src)',
+    options: images,
+  },
+  border: {
+    control: 'boolean',
+    description: 'Border (border)',
+  },
+  lightbox: {
+    control: 'boolean',
+    description: 'Lightbox (lightbox)',
+  },
+  lightboxContrast: {
+    control: 'select',
+    if: { arg: 'lightbox' },
+    description: 'Lightbox contrast (lightbox-contrast)',
+    options: contrasts,
+  },
+  longDescription: {
+    control: 'boolean',
+    description: 'Long description example',
+  },
 };
 
-export default {
-  title: 'Components/Image',
+const defaultArgs = {
+  defaultSrc: images['2:1'],
+  border: false,
+  lightbox: false,
+};
+
+export const Default = {
+  argTypes: controls,
+  args: defaultArgs,
   decorators: [
     (story) =>
       html`
@@ -105,53 +95,44 @@ export default {
         </div>
       `,
   ],
-  parameters: {
-    ...readme.parameters,
-    hasStoryPadding: true,
-    knobs: {
-      'c4d-image': () => {
-        const alt = textNullable('Alt text', 'Image alt text');
-        const defaultSrc = select(
-          'Default image (default-src)',
-          images,
-          imgLg2x1
-        );
-        const border = boolean('Border', false);
-        const copy = textNullable('Copy (copy)', 'Lorem ipsum dolor sit amet');
-        const heading = textNullable('Heading (heading)', 'This is a caption');
-        const longDescription = textNullable(
-          'Long Description',
-          'Optional long descriptive text that is visually hidden to help screen reader users.'
-        );
-        const lightbox = boolean('Lightbox (lightbox)', false);
-        const lightboxContrast = lightbox
-          ? select('Lightbox contrast', contrasts, LIGHTBOX_CONTRAST.LIGHT)
-          : '';
-        return {
-          alt,
-          defaultSrc,
-          border,
-          copy,
-          heading,
-          longDescription,
-          lightbox,
-          lightboxContrast,
-        };
-      },
-    },
-    propsSet: {
-      default: {
-        'c4d-image': {
-          alt: 'Image alt text',
-          defaultSrc: imgLg2x1,
-          border: false,
-          lightbox: false,
-          copy: 'Lorem ipsum dolor sit amet',
-          heading: 'This is a caption',
-          longDescription:
-            'Optional long descriptive text that is visually hidden to help screen reader users.',
-        },
-      },
-    },
+  render: ({
+    defaultSrc,
+    border,
+    lightbox,
+    lightboxContrast,
+    longDescription,
+  }) => {
+    // TODO: See if we can fix unwanted `&` to `&amp` conversion upon changing the select knob
+    const srcset = srcsets[defaultSrc?.replace(/&amp;/, '&')];
+    return html`
+      <c4d-image
+        alt="Image alt text"
+        heading="This is a caption"
+        default-src="${defaultSrc}"
+        ?border=${border}
+        ?lightbox="${lightbox}"
+        lightbox-contrast="${lightboxContrast}"
+        copy="Lorem ipsum dolor sit amet">
+        ${!longDescription
+          ? undefined
+          : html` <div slot="long-description">${longDescription}</div> `}
+        ${!srcset
+          ? undefined
+          : html`
+              <c4d-image-item media="(min-width: 672px)" srcset="${srcset[2]}">
+              </c4d-image-item>
+              <c4d-image-item media="(min-width: 400px)" srcset="${srcset[1]}">
+              </c4d-image-item>
+              <c4d-image-item media="(min-width: 320px)" srcset="${srcset[0]}">
+              </c4d-image-item>
+            `}
+      </c4d-image>
+    `;
   },
 };
+
+const meta = {
+  title: 'Components/Image',
+};
+
+export default meta;

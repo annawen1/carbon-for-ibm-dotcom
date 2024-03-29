@@ -1,27 +1,26 @@
-import {
-  Preview,
-  Props,
-  Description,
-  Story,
-} from '@storybook/addon-docs/blocks';
+import { ArgTypes, Markdown, Meta } from '@storybook/blocks';
 import contributing from '../../../../../../docs/contributing-license.md?raw';
 import { cdnJs, cdnCss } from '../../../globals/internal/storybook-cdn';
+import * as ImageStories from './image.stories';
+
+<Meta of={ImageStories} />
 
 # Image
 
-> The image component is used to embed images within content and can display a
-> specific responsive image depending on viewport size.
+The image component is used to embed images within content and can display a
+specific responsive image depending on viewport size.
 
-> The Image component leverages the image component, the lightbox media viewer
-> and can also display a caption for the image
+The Image component leverages the image component, the lightbox media viewer and
+can also display a caption for the image
 
-> Image items are used to change how the image behaves at different screen
-> sizes. Below you'll find an example with and without media query behaviors.
+Image items are used to change how the image behaves at different screen sizes.
+Below you'll find an example with and without media query behaviors.
 
 > 💡 Check our
 > [Stackblitz](https://stackblitz.com/github/carbon-design-system/carbon-for-ibm-dotcom/tree/main/packages/web-components/examples/stackblitz/components/image)
 > example implementation.
-> [![Edit @carbon/ibmdotcom-web-components](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/carbon-design-system/carbon-for-ibm-dotcom/tree/main/packages/web-components/examples/stackblitz/components/image)
+
+[![Edit @carbon/ibmdotcom-web-components](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/carbon-design-system/carbon-for-ibm-dotcom/tree/main/packages/web-components/examples/stackblitz/components/image)
 
 ## Getting started
 
@@ -136,7 +135,7 @@ in the lighbox media viewer upon clicking the original image.
 
 ## Props
 
-<Props of="c4d-image" />
+<ArgTypes of="c4d-image" />
 
 ## Stable selectors
 
@@ -149,4 +148,4 @@ to see how Web Components selector and `data-autoid` should be used.
 | `<c4d-image>`           | `data-autoid="c4d--image"`      | Component   |
 | `<c4d-image-item>`      | `data-autoid="c4d--image-item"` | Interactive |
 
-<Description markdown={contributing} />
+<Markdown>{contributing}</Markdown>
