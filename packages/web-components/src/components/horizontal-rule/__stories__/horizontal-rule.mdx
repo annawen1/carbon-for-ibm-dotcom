@@ -1,12 +1,9 @@
-import {
-  Preview,
-  Props,
-  Description,
-  Story,
-} from '@storybook/addon-docs/blocks';
-import '../horizontal-rule';
-import contributing from '../../../../../../docs/contributing-license.md?raw';
+import { ArgTypes, Markdown, Meta } from '@storybook/blocks';
 import { cdnJs, cdnCss } from '../../../globals/internal/storybook-cdn';
+import contributing from '../../../../../../docs/contributing-license.md?raw';
+import * as HorizontalRuleStories from './horizontal-rule.stories';
+
+<Meta of={HorizontalRuleStories} />
 
 # Horizontal Rule
 
@@ -38,7 +35,7 @@ import '@carbon/ibmdotcom-web-components/es/components/horizontal-rule/index.js'
 
 ## Props
 
-<Props of="c4d-hr" />
+<ArgTypes of="c4d-hr" />
 
 ## Stable selectors
 
@@ -50,4 +47,4 @@ to see how Web Components selector and `data-autoid` should be used.
 | ----------------------- | ----------------------- | ----------- |
 | `<c4d-hr>`              | `data-autoid="c4d--hr"` | Component   |
 
-<Description markdown={contributing} />
+<Markdown>{contributing}</Markdown>

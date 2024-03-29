@@ -20,6 +20,8 @@ const stories = glob.sync(
     // '../src/**/*.stories.@(js|jsx|ts|tsx)',
     '../src/**/button.mdx',
     '../src/**/button.stories.ts',
+    '../src/**/horizontal-rule.mdx',
+    '../src/**/horizontal-rule.stories.ts',
   ],
   {
     ignore: ['../src/**/docs/*.mdx'],
