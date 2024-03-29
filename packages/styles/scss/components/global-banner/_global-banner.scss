@@ -137,58 +137,6 @@
       }
     }
 
-    &[has-image] {
-      .#{$prefix}--global-banner-image-container {
-        display: none;
-      }
-    }
-
-    &[image-width='4-col'] {
-      .#{$prefix}--global-banner-image-container {
-        @include breakpoint(lg) {
-          @include make-col(4, 16);
-        }
-      }
-
-      .#{$prefix}--global-banner-text-container {
-        @include breakpoint(lg) {
-          @include make-col(7, 16);
-        }
-      }
-
-      .#{$prefix}--global-banner-cta-container {
-        @include breakpoint(lg) {
-          @include make-col-offset(1, 16);
-        }
-      }
-    }
-
-    &[image-width='8-col'] {
-      .#{$prefix}--global-banner-image-container {
-        @include make-col(8, 16);
-      }
-
-      .#{$prefix}--global-banner-text-container {
-        @include breakpoint(lg) {
-          @include make-col(4, 16);
-        }
-      }
-    }
-
-    &:not([has-image]) {
-      .#{$prefix}--global-banner-text-container {
-        @include breakpoint(lg) {
-          @include make-col(11, 16);
-        }
-      }
-
-      .#{$prefix}--global-banner-cta-container {
-        @include breakpoint(lg) {
-          @include make-col-offset(1, 16);
-        }
-      }
-    }
-
     ::slotted(#{$c4d-prefix}-button) {
       @include theme($g100, true);
 
@@ -239,6 +187,58 @@
   :host(#{$c4d-prefix}-global-banner-image) {
     .#{$prefix}--image__img {
       object-fit: cover;
+    }
+  }
+
+  :host(#{$c4d-prefix}-global-banner[has-image]) {
+    .#{$prefix}--global-banner-image-container {
+      display: none;
+    }
+  }
+
+  :host(#{$c4d-prefix}-global-banner[image-width='4-col']) {
+    .#{$prefix}--global-banner-image-container {
+      @include breakpoint(lg) {
+        @include make-col(4, 16);
+      }
+    }
+
+    .#{$prefix}--global-banner-text-container {
+      @include breakpoint(lg) {
+        @include make-col(7, 16);
+      }
+    }
+
+    .#{$prefix}--global-banner-cta-container {
+      @include breakpoint(lg) {
+        @include make-col-offset(1, 16);
+      }
+    }
+  }
+
+  :host(#{$c4d-prefix}-global-banner[image-width='8-col']) {
+    .#{$prefix}--global-banner-image-container {
+      @include make-col(8, 16);
+    }
+
+    .#{$prefix}--global-banner-text-container {
+      @include breakpoint(lg) {
+        @include make-col(4, 16);
+      }
+    }
+  }
+
+  :host(#{$c4d-prefix}-global-banner:not([has-image])) {
+    .#{$prefix}--global-banner-text-container {
+      @include breakpoint(lg) {
+        @include make-col(11, 16);
+      }
+    }
+
+    .#{$prefix}--global-banner-cta-container {
+      @include breakpoint(lg) {
+        @include make-col-offset(1, 16);
+      }
     }
   }
 }
