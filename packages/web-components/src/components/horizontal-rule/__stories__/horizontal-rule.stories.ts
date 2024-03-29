@@ -9,7 +9,6 @@
 
 import { html } from 'lit';
 import '../horizontal-rule';
-import readme from './README.stories.mdx';
 
 const types = {
   solid: undefined,
