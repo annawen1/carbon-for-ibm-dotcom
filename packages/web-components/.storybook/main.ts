@@ -30,7 +30,8 @@ const stories = glob.sync(
     '../src/**/carousel.stories.ts',
     '../src/**/card-in-card.mdx',
     '../src/**/card-in-card.stories.ts',
-
+    '../src/**/horizontal-rule.mdx',
+    '../src/**/horizontal-rule.stories.ts',
   ],
   {
     ignore: ['../src/**/docs/*.mdx'],
