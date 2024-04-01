@@ -1,12 +1,9 @@
-import {
-  Preview,
-  Props,
-  Description,
-  Story,
-} from '@storybook/addon-docs/blocks';
+import { ArgTypes, Markdown, Meta } from '@storybook/blocks';
 import contributing from '../../../../../../docs/contributing-license.md?raw';
-import '../quote';
 import { cdnJs, cdnCss } from '../../../globals/internal/storybook-cdn';
+import * as QuoteStories from './quote.stories';
+
+<Meta of={QuoteStories} />
 
 # Quote
 
@@ -52,7 +49,7 @@ import '@carbon/ibmdotcom-web-components/es/components/quote/index.js';
 
 ## Props
 
-<Props of="c4d-quote" />
+<ArgTypes of="c4d-quote" />
 
 ## Stable selectors
 
@@ -64,4 +61,4 @@ to see how Web Components selector and `data-autoid` should be used.
 | ----------------------- | -------------------------- | ----------- |
 | `<c4d-quote>`           | `data-autoid="c4d--quote"` | Component   |
 
-<Description markdown={contributing} />
+<Markdown>{contributing}</Markdown>
