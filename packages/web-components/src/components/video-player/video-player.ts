@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020, 2023
+ * Copyright IBM Corp. 2020, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -183,7 +183,7 @@ class C4DVideoPlayer extends FocusMixin(
    * `true` to autoplay, mute video, and hide UI
    */
   @property({ attribute: 'background-mode', reflect: true })
-  backgroundMode: boolean = false;
+  backgroundMode = false;
 
   /**
    * Custom video description. This property should only be set when using `playing-mode="lightbox"`

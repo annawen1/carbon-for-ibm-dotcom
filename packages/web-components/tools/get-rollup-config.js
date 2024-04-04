@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020, 2023
+ * Copyright IBM Corp. 2020, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -16,13 +16,12 @@ const { promisify } = require('util');
 const postcss = require('postcss');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
-const rtlcss = require('rtlcss');
 const { nodeResolve } = require('@rollup/plugin-node-resolve');
 const babel = require('@rollup/plugin-babel');
 const commonjs = require('@rollup/plugin-commonjs');
 const json = require('@rollup/plugin-json');
 const replace = require('@rollup/plugin-replace');
-const { terser } = require('rollup-plugin-terser');
+const terser = require('@rollup/plugin-terser');
 const multiInput = require('rollup-plugin-multi-input').default;
 const injectProcessEnv = require('rollup-plugin-inject-process-env');
 
@@ -83,10 +82,6 @@ function getRollupConfig({
     postCSSPlugins.push(cssnano());
   }
 
-  if (dir === 'rtl') {
-    postCSSPlugins.push(rtlcss);
-  }
-
   const licenseOptions = {
     whitelist: /^(carbon-components|carbon-web-components|@carbon*)$/i,
     async licenseSelf() {
@@ -103,10 +98,6 @@ function getRollupConfig({
   inputs[
     `ibmdotcom-web-components-dotcom-shell${dirSuffixes[dir]}${modeSuffixes[mode]}`
   ] = 'src/components/dotcom-shell/index.ts';
-
-  // adding the cloud masthead
-  inputs[`cloud-masthead${dirSuffixes[dir]}${modeSuffixes[mode]}`] =
-    'src/components/masthead/cloud/index.ts';
 
   folders.forEach((folder) => {
     if (folder === 'cta') {

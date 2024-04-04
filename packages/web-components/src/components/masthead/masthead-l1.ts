@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020, 2023
+ * Copyright IBM Corp. 2020, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -16,6 +16,7 @@ import styles from './masthead-l1.scss?lit';
 import {
   L1MenuItem as _L1MenuItem,
   L1SubmenuSection as _L1SubmenuSection,
+  L1CtaLink,
   L1SubmenuSectionHeading,
   MastheadL1,
 } from '../../internal/vendor/@carbon/ibmdotcom-services-store/types/translateAPI';
@@ -314,6 +315,15 @@ class C4DMastheadL1 extends StableSelectorMixin(LitElement) {
   }
 
   /**
+   * Renders the L1 CTA.
+   *
+   * @returns {_TemplateResult} A template fragment representing the L1 CTA
+   */
+  protected _renderCta(): _TemplateResult | '' {
+    return html`<slot name="l1-cta"></slot>`;
+  }
+
+  /**
    * Renders L1 for desktop screensizes
    *
    * @returns {_TemplateResult} L1 for desktop screensizes
@@ -321,7 +331,7 @@ class C4DMastheadL1 extends StableSelectorMixin(LitElement) {
   protected _renderL1TopNav() {
     const { l1Data, direction, _scrollL1TopNav: scrollL1TopNav } = this;
     const { url, title, actions, menuItems } = l1Data ?? {};
-    const { cta, login } = actions ?? {};
+    const { login } = actions ?? {};
 
     return html`
       <div
@@ -371,13 +381,7 @@ class C4DMastheadL1 extends StableSelectorMixin(LitElement) {
             </div>
           `
         : ''}
-      ${cta && cta.url && cta.title
-        ? html`
-            <a class="${prefix}--masthead__l1-cta" href="${ifDefined(cta.url)}"
-              >${cta.title}</a
-            >
-          `
-        : ''}
+      ${this._renderCta()}
       <div
         class="${prefix}--masthead__l1-menu-container-mask ${prefix}--masthead__l1-menu-container-mask--end"></div>
     `;
@@ -447,6 +451,7 @@ class C4DMastheadL1 extends StableSelectorMixin(LitElement) {
           ${title}${ChevronDown16()}
         </button>
         <div
+          data-dropdown-target
           class="${prefix}--masthead__l1-dropdown ${prefix}--masthead__l1-dropdown__${columns}-col">
           ${announcement
             ? html`<div class="${prefix}--masthead__l1-dropdown-announcement">
@@ -551,7 +556,7 @@ class C4DMastheadL1 extends StableSelectorMixin(LitElement) {
       <button class="${prefix}--masthead__l1-title" @click=${toggleSubsection}>
         ${title}${ChevronDown16()}
       </button>
-      <ul class="${prefix}--masthead__l1-dropdown">
+      <ul data-dropdown-target class="${prefix}--masthead__l1-dropdown">
         ${url
           ? html` <li>
               <a class="${prefix}--masthead__l1-dropdown-item" href="${url}">
@@ -569,15 +574,7 @@ class C4DMastheadL1 extends StableSelectorMixin(LitElement) {
               </a>
             </li>`
           : ''}
-        ${cta && cta.url && cta.title
-          ? html`<li>
-              <a
-                class="${prefix}--masthead__l1-dropdown-cta"
-                href="${ifDefined(cta.url)}">
-                ${cta.title}${ArrowRight16()}
-              </a>
-            </li>`
-          : ''}
+        ${cta ? html`<li>${this._renderCta()}</li>` : ''}
       </ul>
     `;
   }
@@ -617,7 +614,9 @@ class C4DMastheadL1 extends StableSelectorMixin(LitElement) {
           @click=${toggleSubsection}>
           ${title}${ChevronDown16()}
         </button>
-        <div class="${prefix}--masthead__l1-dropdown-subsection">
+        <div
+          data-dropdown-target
+          class="${prefix}--masthead__l1-dropdown-subsection">
           ${announcement
             ? html`<div class="${prefix}--masthead__l1-dropdown-announcement">
                 ${unsafeHTML(announcement)}
@@ -670,10 +669,13 @@ class C4DMastheadL1 extends StableSelectorMixin(LitElement) {
    */
   protected _toggleSubsection(event: PointerEvent) {
     const { isMobileVersion } = this;
+    const { dropDownToggleEvent } = this.constructor as typeof C4DMastheadL1;
     const { currentTarget } = event;
     const button = currentTarget as HTMLElement;
-    const dropdown = button.nextElementSibling as HTMLElement;
-    const isOpen = dropdown.classList.contains('is-open');
+    const dropdown = button.parentNode?.querySelector(
+      '[data-dropdown-target]'
+    ) as HTMLElement;
+    const isOpen = dropdown?.classList.contains('is-open');
 
     if (!isMobileVersion && dropdown && !isOpen) {
       // Get Button & Dropdown locations & widths
@@ -730,6 +732,17 @@ class C4DMastheadL1 extends StableSelectorMixin(LitElement) {
       const maxHeight = viewportHeight - dropdownRect.top;
       dropdown.style.maxHeight = `calc(${maxHeight}px - 4rem)`;
     }
+
+    this.dispatchEvent(
+      new CustomEvent(dropDownToggleEvent, {
+        bubbles: true,
+        composed: true,
+        cancelable: false,
+        detail: {
+          isOpen: !isOpen,
+        },
+      })
+    );
 
     button.classList.toggle('is-open', !isOpen);
     dropdown.classList.toggle('is-open', !isOpen);
@@ -948,8 +961,38 @@ class C4DMastheadL1 extends StableSelectorMixin(LitElement) {
     `;
   }
 
+  /**
+   * Creates CTA markup and slots it into the L1.
+   *
+   * @param {L1CtaLink} cta L1 CTA data object
+   * @returns A template fragment representing an L1 CTA or an empty string.
+   */
+  static renderL1Cta(cta: L1CtaLink): _TemplateResult | string {
+    const { url, ctaType } = cta;
+    const slottedText = html`<span slot="cta-text">${cta?.title}</span>`;
+    if (ctaType) {
+      return html`
+        <c4d-masthead-l1-cta slot="l1-cta" type="${ctaType}">
+          ${slottedText}
+        </c4d-masthead-l1-cta>
+      `;
+    }
+    if (url) {
+      return html`
+        <c4d-masthead-l1-cta slot="l1-cta" href="${url}">
+          ${slottedText}
+        </c4d-masthead-l1-cta>
+      `;
+    }
+    return '';
+  }
+
   static get stableSelector() {
     return `${c4dPrefix}--masthead__l1`;
+  }
+
+  static get dropDownToggleEvent() {
+    return `${c4dPrefix}-masthead-l1-dropdown-toggle`;
   }
 
   static styles = styles; // `styles` here is a `CSSResult` generated by custom WebPack loader

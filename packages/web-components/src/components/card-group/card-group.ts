@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020, 2023
+ * Copyright IBM Corp. 2020, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -175,7 +175,7 @@ class C4DCardGroup extends StableSelectorMixin(LitElement) {
       'md'
     );
 
-    let tagGroupHeight: number = 0;
+    let tagGroupHeight = 0;
 
     // get tallest height of tag groups
     this._childItemTagGroup.forEach((item) => {

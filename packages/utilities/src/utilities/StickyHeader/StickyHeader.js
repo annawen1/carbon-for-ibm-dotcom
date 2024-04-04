@@ -1,5 +1,5 @@
 /**
- * Copyright IBM Corp. 2016, 2023
+ * Copyright IBM Corp. 2016, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -74,21 +74,17 @@ class StickyHeader {
 
     const tocRoot = toc.shadowRoot;
 
-    const desktopSelector = `.${c4dPrefix}-ce--table-of-contents__items-container`;
-
+    this._tableOfContentsInnerBar = tocRoot.querySelector(
+      `.${prefix}--tableofcontents__navbar`
+    );
     if (window.innerWidth > gridBreakpoint) {
       if (toc.layout === 'horizontal') {
-        this._tableOfContentsInnerBar = tocRoot.querySelector(
-          `.${prefix}--tableofcontents__navbar`
-        );
         this._tableOfContentsLayout = 'horizontal';
       } else {
-        this._tableOfContentsInnerBar = tocRoot.querySelector(desktopSelector);
+        this._tableOfContentsInnerBar = tocRoot.querySelector(
+          `.${c4dPrefix}-ce--table-of-contents__items-container`
+        );
       }
-    } else {
-      this._tableOfContentsInnerBar = tocRoot.querySelector(
-        `.${prefix}--tableofcontents__sidebar`
-      );
     }
   }
 
@@ -134,7 +130,9 @@ class StickyHeader {
   set masthead(component) {
     if (this._validateComponent(component, `${c4dPrefix}-masthead`)) {
       this._masthead = component;
-      if (this._banner) this._masthead.setAttribute('with-banner', '');
+      if (this._banner) {
+        this._masthead.setAttribute('with-banner', '');
+      }
 
       this._mastheadL0 = component.shadowRoot.querySelector(
         `.${prefix}--masthead__l0`
@@ -219,10 +217,12 @@ class StickyHeader {
 
     const { customPropertyName } = this.constructor;
 
-    if (localeModal && localeModal.hasAttribute('open')) return;
+    if (localeModal && localeModal.hasAttribute('open')) {
+      return;
+    }
 
     const newY = window.scrollY;
-    this._lastScrollPosition = newY;
+    this._lastScrollPosition = Math.max(0, newY);
 
     /**
      * maxScrollaway is a calculated value matching the height of all components

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020, 2023
+ * Copyright IBM Corp. 2020, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -72,9 +72,11 @@ class C4DLinkList extends StableSelectorMixin(LitElement) {
       ) as Element[];
 
     if (this._childItems.length > 3) {
-      if (this._childItems.length < 7)
+      if (this._childItems.length < 7) {
         this._endTypeLayout = END_TYPE_LAYOUT.TWO_COLUMNS;
-      else this._endTypeLayout = END_TYPE_LAYOUT.THREE_COLUMNS;
+      } else {
+        this._endTypeLayout = END_TYPE_LAYOUT.THREE_COLUMNS;
+      }
     } else {
       this._endTypeLayout = END_TYPE_LAYOUT.DEFAULT;
     }

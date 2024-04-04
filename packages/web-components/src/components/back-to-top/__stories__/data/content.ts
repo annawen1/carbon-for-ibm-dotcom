@@ -1,5 +1,5 @@
 /**
- * Copyright IBM Corp. 2016, 2023
+ * Copyright IBM Corp. 2016, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -18,8 +18,8 @@ import '../../../cta/link-list-item-cta';
 import '../../../button/index';
 
 import ArrowRight20 from '../../../../internal/vendor/@carbon/web-components/icons/arrow--right/20';
-import imgLg1x1 from '../../../../../../storybook-images/assets/960/fpo--1x1--960x960--006.jpg';
-import leadspaceImg from '../../../../../../storybook-images/assets/leadspace/leadspaceMax2.jpg';
+import imgLg1x1 from '../../../../../.storybook/storybook-images/assets/960/fpo--1x1--960x960--006.jpg';
+import leadspaceImg from '../../../../../.storybook/storybook-images/assets/leadspace/leadspaceMax2.jpg';
 
 const copy = `Many organizations are engaging in open source technology to optimize their Linux environment.
 The ability to integrate open systems with traditional or hybrid cloud IT infrastructure has a profound effect

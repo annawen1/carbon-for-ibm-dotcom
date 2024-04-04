@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020, 2023
+ * Copyright IBM Corp. 2020, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -31,7 +31,7 @@ class C4DFilterPanelInputSelectItem extends FocusMixin(
    * Property for the input select item value
    */
   @property()
-  _title: string = '';
+  _title = '';
 
   /**
    * sets the input select dropdown to unselected
@@ -43,12 +43,13 @@ class C4DFilterPanelInputSelectItem extends FocusMixin(
    * Property for setting the value to a string.
    */
   @property()
-  value: string = '';
+  value = '';
 
   /**
    * Handles `slotchange` event.
    *
    * @param event The event.
+   * @param event.target The event target.
    */
   protected _handleSlotChange({ target }: Event) {
     this._title = (target as HTMLSlotElement).assignedNodes()[0]

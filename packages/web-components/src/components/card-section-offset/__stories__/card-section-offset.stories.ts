@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020, 2023
+ * Copyright IBM Corp. 2020, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -15,7 +15,7 @@ import readme from './README.stories.mdx';
 import '../index';
 import { GRID_MODE } from '../../card-group/defs';
 import { CTA_TYPE } from '../../cta/defs';
-import image from '../../../../../storybook-images/assets/card-section-offset/background-media.jpg';
+import image from '../../../../.storybook/storybook-images/assets/card-section-offset/background-media.jpg';
 import textNullable from '../../../../.storybook/knob-text-nullable';
 
 const ctaTypes = {

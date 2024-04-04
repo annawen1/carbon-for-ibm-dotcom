@@ -1,3 +1,12 @@
+/**
+ * @license
+ *
+ * Copyright IBM Corp. 2020, 2024
+ *
+ * This source code is licensed under the Apache-2.0 license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 import { setCustomElementsManifest } from '@storybook/web-components';
 import customElements from '../custom-elements.json';
 import container from './container';

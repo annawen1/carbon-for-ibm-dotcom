@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020, 2023
+ * Copyright IBM Corp. 2020, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -31,7 +31,7 @@ class C4DLeadspaceWithSearch extends StableSelectorMixin(LitElement) {
    * sets the heading for sticky search
    */
   @property()
-  protected _heading: string = '';
+  protected _heading = '';
 
   /**
    * `true` if there is an image.
@@ -66,11 +66,13 @@ class C4DLeadspaceWithSearch extends StableSelectorMixin(LitElement) {
    * Handles `slotchange` event.
    *
    * @param event The event.
+   * @param event.target The event target.
    */
   protected _handleHeadingSlotChange({ target }: Event) {
+    // @ts-ignore
     this._heading = (
       (target as HTMLSlotElement).assignedNodes()[0] as HTMLElement
-    ).querySelector('h1')?.innerText!;
+    ).querySelector('h1')?.innerText;
   }
 
   /**

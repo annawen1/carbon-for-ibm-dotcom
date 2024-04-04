@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020, 2023
+ * Copyright IBM Corp. 2020, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -114,10 +114,7 @@ const renderHeaderCell = (iterator: number): TemplateResult => {
   return cellVariations[(iterator - 1) % cellVariations.length];
 };
 
-const renderHead = (
-  columnCount: number,
-  heading: string = ''
-): TemplateResult => {
+const renderHead = (columnCount: number, heading = ''): TemplateResult => {
   return html`
     <c4d-pricing-table-head>
       <c4d-pricing-table-header-row>
@@ -137,10 +134,7 @@ const renderHead = (
   `;
 };
 
-const renderBodyCell = (
-  type: CELL_TYPES,
-  iconText: string = ''
-): TemplateResult => {
+const renderBodyCell = (type: CELL_TYPES, iconText = ''): TemplateResult => {
   switch (type) {
     case CELL_TYPES.TEXT:
       return html`
@@ -177,8 +171,8 @@ const renderBodyRow = (
   columnCount: number,
   rowNum: number,
   cellType: CELL_TYPES,
-  rowHeaders: boolean = true,
-  iconText: string = ''
+  rowHeaders = true,
+  iconText = ''
 ): TemplateResult => html`
   <c4d-pricing-table-row>
     ${(() => {

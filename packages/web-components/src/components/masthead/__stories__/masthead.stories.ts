@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020, 2023
+ * Copyright IBM Corp. 2020, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -14,9 +14,10 @@ import ifNonEmpty from '../../../internal/vendor/@carbon/web-components/globals/
 import textNullable from '../../../../.storybook/knob-text-nullable';
 import c4dLeftNav from '../left-nav';
 import '../masthead-container';
+import { L1_CTA_TYPES } from '../defs';
 import styles from './masthead.stories.scss?lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { mastheadLinksV2 as links, mastheadL1Data, logoData } from './links';
+import { mastheadL0Data, mastheadL1Data, mastheadLogoData } from './links';
 import {
   UNAUTHENTICATED_STATUS,
   MASTHEAD_AUTH_METHOD,
@@ -85,12 +86,18 @@ async function customTypeaheadApiFunction(searchVal) {
     });
 }
 
+const enumToArray = (en) =>
+  Object.keys(en)
+    .filter((value) => typeof value === 'string')
+    .map((key) => en[key]);
+
 export const Default = (args) => {
   const {
     customProfileLogin,
     hasProfile,
     hasSearch,
     hasContact,
+    initialSearchTerm,
     selectedMenuItem,
     searchPlaceholder,
     userStatus,
@@ -103,77 +110,34 @@ export const Default = (args) => {
     </style>
     ${useMock
       ? html`
-          <c4d-masthead-composite
+          <c4d-masthead-container
             selected-menu-item="${ifDefined(selectedMenuItem)}"
             user-status="${ifDefined(userStatus)}"
+            initial-search-term="${ifDefined(initialSearchTerm)}"
             searchPlaceholder="${ifDefined(searchPlaceholder)}"
             has-profile="${hasProfile}"
             has-search="${hasSearch}"
             has-contact="${hasContact}"
-            .navLinks="${links}"
+            .l0Data="${mastheadL0Data}"
             .authenticatedProfileItems="${ifDefined(authenticatedProfileItems)}"
             .unauthenticatedProfileItems="${ifNonEmpty(
               unauthenticatedProfileItems
             )}"
             custom-profile-login="${customProfileLogin}"
-            auth-method="${MASTHEAD_AUTH_METHOD.DEFAULT}"></c4d-masthead-composite>
+            auth-method="${MASTHEAD_AUTH_METHOD.DEFAULT}"></c4d-masthead-container>
         `
       : html`
           <c4d-masthead-container
             data-endpoint="${dataEndpoints['v2.1']}"
             selected-menu-item="${ifNonEmpty(selectedMenuItem)}"
             user-status="${ifNonEmpty(userStatus)}"
+            initial-search-term="${ifDefined(initialSearchTerm)}"
             searchPlaceholder="${ifNonEmpty(searchPlaceholder)}"
             has-profile="${hasProfile}"
             has-search="${hasSearch}"
             has-contact="${hasContact}"
             custom-profile-login="${customProfileLogin}"
             auth-method="${authMethod}"></c4d-masthead-container>
-        `}
-  `;
-};
-
-export const withCloudData = (args) => {
-  const {
-    customProfileLogin,
-    hasSearch,
-    selectedMenuItem,
-    searchPlaceholder,
-    useMock,
-  } = args?.MastheadComposite ?? {};
-
-  return html`
-    <style>
-      ${styles}
-    </style>
-    ${useMock
-      ? html`
-          <c4d-masthead-composite
-            platform="Cloud"
-            .platformUrl="https://www.ibm.com/cloud"
-            selected-menu-item="${ifNonEmpty(selectedMenuItem)}"
-            searchPlaceholder="${ifNonEmpty(searchPlaceholder)}"
-            has-search="${hasSearch}"
-            .navLinks="${links}"
-            .authenticatedProfileItems="${ifNonEmpty(
-              authenticatedProfileItems
-            )}"
-            .unauthenticatedProfileItems="${ifNonEmpty(
-              unauthenticatedProfileItems
-            )}"
-            custom-profile-login="${customProfileLogin}"
-            auth-method="${MASTHEAD_AUTH_METHOD.COOKIE}"></c4d-masthead-composite>
-        `
-      : html`
-          <c4d-masthead-container
-            data-endpoint="${dataEndpoints['cloud']}"
-            platform="Cloud"
-            .platformUrl="https://www.ibm.com/cloud"
-            selected-menu-item="${ifNonEmpty(selectedMenuItem)}"
-            searchPlaceholder="${ifNonEmpty(searchPlaceholder)}"
-            has-search="${hasSearch}"
-            custom-profile-login="${customProfileLogin}"
-            auth-method="${MASTHEAD_AUTH_METHOD.COOKIE}"></c4d-masthead-container>
         `}
   `;
 };
@@ -199,15 +163,15 @@ export const WithCustomTypeahead = (args) => {
     </style>
     ${useMock
       ? html`
-          <c4d-masthead-composite
-            .navLinks="${links}"
+          <c4d-masthead-container
+            .l0Data="${mastheadL0Data}"
             .authenticatedProfileItems="${ifNonEmpty(
               authenticatedProfileItems
             )}"
             .unauthenticatedProfileItems="${ifNonEmpty(
               unauthenticatedProfileItems
             )}"
-            ?custom-typeahead-api=${true}></c4d-masthead-composite>
+            ?custom-typeahead-api=${true}></c4d-masthead-container>
         `
       : html`
           <c4d-masthead-container
@@ -238,15 +202,16 @@ WithCustomTypeahead.story = {
 };
 
 export const searchOpenOnload = (args) => {
-  const { searchPlaceholder, useMock } = args?.MastheadComposite ?? {};
+  const { initialSearchTerm, searchPlaceholder, useMock } =
+    args?.MastheadComposite ?? {};
   return html`
     <style>
       ${styles}
     </style>
     ${useMock
       ? html`
-          <c4d-masthead-composite
-            .navLinks="${links}"
+          <c4d-masthead-container
+            .l0Data="${mastheadL0Data}"
             .authenticatedProfileItems="${ifNonEmpty(
               authenticatedProfileItems
             )}"
@@ -254,14 +219,16 @@ export const searchOpenOnload = (args) => {
               unauthenticatedProfileItems
             )}"
             activate-search="true"
+            initial-search-term="${ifDefined(initialSearchTerm)}"
             searchPlaceholder="${ifDefined(
               searchPlaceholder
-            )}"></c4d-masthead-composite>
+            )}"></c4d-masthead-container>
         `
       : html`
           <c4d-masthead-container
             data-endpoint="${dataEndpoints['v2.1']}"
             activate-search="true"
+            initial-search-term="${ifDefined(initialSearchTerm)}"
             searchPlaceholder="${ifDefined(
               searchPlaceholder
             )}"></c4d-masthead-container>
@@ -291,16 +258,16 @@ export const withPlatform = (args) => {
     </style>
     ${useMock
       ? html`
-          <c4d-masthead-composite
+          <c4d-masthead-container
             platform="${ifNonEmpty(platform)}"
-            .navLinks="${links}"
+            .l0Data="${mastheadL0Data}"
             .authenticatedProfileItems="${ifNonEmpty(
               authenticatedProfileItems
             )}"
             .unauthenticatedProfileItems="${ifNonEmpty(
               unauthenticatedProfileItems
             )}"
-            .platformUrl="${ifNonEmpty(platformUrl)}"></c4d-masthead-composite>
+            .platformUrl="${ifNonEmpty(platformUrl)}"></c4d-masthead-container>
         `
       : html`
           <c4d-masthead-container
@@ -341,32 +308,40 @@ withPlatform.story = {
 };
 
 export const withL1 = (args) => {
-  const { selectedMenuItem, selectedMenuItemL1, useMock } =
+  const { selectedMenuItem, selectedMenuItemL1, l1CtaType, useMock } =
     args?.MastheadComposite ?? {};
+
+  let l1Data = { ...mastheadL1Data };
+  if (l1Data?.actions?.cta) {
+    l1CtaType
+      ? (l1Data.actions.cta.ctaType = l1CtaType)
+      : delete l1Data.actions.cta.ctaType;
+  }
+
   return html`
     <style>
       ${styles}
     </style>
     ${useMock
       ? html`
-          <c4d-masthead-composite
-            .navLinks="${links}"
+          <c4d-masthead-container
+            .l0Data="${mastheadL0Data}"
             .authenticatedProfileItems="${ifNonEmpty(
               authenticatedProfileItems
             )}"
             .unauthenticatedProfileItems="${ifNonEmpty(
               unauthenticatedProfileItems
             )}"
-            .l1Data="${mastheadL1Data}"
+            .l1Data="${l1Data}"
             selected-menu-item="${ifNonEmpty(selectedMenuItem)}"
             selected-menu-item-l1="${ifNonEmpty(
               selectedMenuItemL1
-            )}"></c4d-masthead-composite>
+            )}"></c4d-masthead-container>
         `
       : html`
           <c4d-masthead-container
             data-endpoint="${dataEndpoints['v2.1']}"
-            .l1Data="${mastheadL1Data}"
+            .l1Data="${l1Data}"
             selected-menu-item="${ifNonEmpty(selectedMenuItem)}"
             selected-menu-item-l1="${ifNonEmpty(
               selectedMenuItemL1
@@ -388,17 +363,21 @@ withL1.story = {
           'selected menu item in L1 (selected-menu-item-l1)',
           ''
         ),
+        l1CtaType: select(
+          'L1 CTA type',
+          enumToArray(L1_CTA_TYPES),
+          L1_CTA_TYPES.NONE
+        ),
         useMock: boolean('use mock nav data (use-mock)', false),
       }),
     },
     propsSet: {
       default: {
         MastheadComposite: {
-          hasProfile: 'true',
-          hasSearch: 'true',
-          searchPlaceholder: 'Search all of IBM',
-          selectedMenuItem: 'Lorem ipsum dolor sit amet',
-          userStatus: userStatuses.unauthenticated,
+          selectedMenuItem: 'Consulting',
+          selectedMenuItemL1: '',
+          l1CtaType: L1_CTA_TYPES.NONE,
+          useMock: false,
         },
       },
     },
@@ -413,8 +392,8 @@ export const withAlternateLogoAndTooltip = (args) => {
     </style>
     ${useMock
       ? html`
-          <c4d-masthead-composite
-            .navLinks="${links}"
+          <c4d-masthead-container
+            .l0Data="${mastheadL0Data}"
             .authenticatedProfileItems="${ifNonEmpty(
               authenticatedProfileItems
             )}"
@@ -422,14 +401,14 @@ export const withAlternateLogoAndTooltip = (args) => {
               unauthenticatedProfileItems
             )}"
             .logoData="${mastheadLogo === 'alternateWithTooltip'
-              ? logoData
-              : null}"></c4d-masthead-composite>
+              ? mastheadLogoData
+              : null}"></c4d-masthead-container>
         `
       : html`
           <c4d-masthead-container
             data-endpoint="${dataEndpoints['v2.1']}"
             .logoData="${mastheadLogo === 'alternateWithTooltip'
-              ? logoData
+              ? mastheadLogoData
               : null}"></c4d-masthead-container>
         `}
   `;
@@ -473,15 +452,15 @@ export const WithScopedSearch = (args) => {
     </style>
     ${useMock
       ? html`
-          <c4d-masthead-composite
-            .navLinks="${links}"
+          <c4d-masthead-container
+            .l0Data="${mastheadL0Data}"
             .authenticatedProfileItems="${ifNonEmpty(
               authenticatedProfileItems
             )}"
             .unauthenticatedProfileItems="${ifNonEmpty(
               unauthenticatedProfileItems
             )}"
-            .scopeParameters=${scopeParameters}></c4d-masthead-composite>
+            .scopeParameters=${scopeParameters}></c4d-masthead-container>
         `
       : html`
           <c4d-masthead-container
@@ -527,12 +506,12 @@ export default {
         ${story()}
         <script>
           window.digitalData.page.pageInfo.ibm.contactModuleConfiguration = {
-            contactInformationBundleKey: {
+            routing: {
               focusArea: 'Cloud - Automation - All',
               languageCode: 'en',
               regionCode: 'US',
             },
-            contactModuleTranslationKey: {
+            translation: {
               languageCode: 'en',
               regionCode: 'US',
             },
@@ -565,6 +544,10 @@ export default {
           ['true', 'false'],
           'true'
         ),
+        initialSearchTerm: textNullable(
+          'initial search term (initial-search-term)',
+          ''
+        ),
         searchPlaceholder: textNullable(
           'search placeholder (searchPlaceholder)',
           'Search all of IBM'
@@ -593,6 +576,7 @@ export default {
           platform: null,
           hasProfile: 'true',
           hasSearch: 'true',
+          initialSearchTerm: '',
           searchPlaceholder: 'Search all of IBM',
           selectedMenuItem: 'Services & Consulting',
           userStatus: userStatuses.unauthenticated,

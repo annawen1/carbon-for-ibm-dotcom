@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2022, 2023
+ * Copyright IBM Corp. 2022, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -53,7 +53,9 @@ class C4DPricingTableHeaderRow extends StableSelectorMixin(
         const tag = cell.shadowRoot.querySelector(
           `.${C4DPricingTableHeaderCell.tagWrapperSelector}`
         );
-        if (tag) acc.push(tag);
+        if (tag) {
+          acc.push(tag);
+        }
       }
       return acc;
     }, []);

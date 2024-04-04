@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020, 2023
+ * Copyright IBM Corp. 2020, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -48,7 +48,9 @@ const StableSelectorMixin = <T extends Constructor<HTMLElement>>(Base: T) => {
 
       this._cleanAndCreateMutationObserver({ create: true });
       window.requestAnimationFrame(() => {
-        if (!this.linkNode) this.transposeAttributes();
+        if (!this.linkNode) {
+          this.transposeAttributes();
+        }
       });
     }
 
@@ -102,7 +104,6 @@ const StableSelectorMixin = <T extends Constructor<HTMLElement>>(Base: T) => {
       }
 
       if (create) {
-        const element = this;
         this._mutationObserver = new MutationObserver((mutations) => {
           mutations.forEach((mutation) => {
             if (mutation.type === 'attributes') {
@@ -112,7 +113,7 @@ const StableSelectorMixin = <T extends Constructor<HTMLElement>>(Base: T) => {
             }
           });
         });
-        this._mutationObserver?.observe(element, { attributes: true });
+        this._mutationObserver?.observe(this, { attributes: true });
       }
     }
 

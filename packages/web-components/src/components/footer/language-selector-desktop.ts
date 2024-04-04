@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020, 2023
+ * Copyright IBM Corp. 2020, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -67,7 +67,9 @@ class C4DLanguageSelectorDesktop extends HostListenerMixin(C4DComboBox) {
       ? -1
       : findIndex(items, this._testItemWithQueryText, this);
     forEach(items, (item, i) => {
-      if (i === index) item.scrollIntoView();
+      if (i === index) {
+        item.scrollIntoView();
+      }
       (item as CDSComboBoxItem).highlighted = i === index;
     });
     const { _filterInputNode: filterInput } = this;

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020, 2023
+ * Copyright IBM Corp. 2020, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -277,6 +277,7 @@ class C4DCarousel extends HostListenerMixin(StableSelectorMixin(LitElement)) {
    * Stops the container from scrolling when focusing on a card outside the viewport.
    *
    * @param event The event.
+   * @param event.target The event target.
    */
   // eslint-disable-next-line class-methods-use-this
   private _handleScrollFocus({ target }: Event) {
@@ -287,6 +288,7 @@ class C4DCarousel extends HostListenerMixin(StableSelectorMixin(LitElement)) {
    * Handles card focus throughout pages.
    *
    * @param event The event.
+   * @param event.target The event target.
    */
   @HostListener('shadowRoot:focusin')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
@@ -527,7 +529,7 @@ class C4DCarousel extends HostListenerMixin(StableSelectorMixin(LitElement)) {
       'sm'
     );
 
-    let tagGroupHeight: number = 0;
+    let tagGroupHeight = 0;
 
     // Get the tallest height of tag groups.
     this._childItemTagGroup.forEach((item) => {

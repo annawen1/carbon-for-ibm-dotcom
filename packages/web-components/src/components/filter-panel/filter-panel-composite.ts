@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020, 2023
+ * Copyright IBM Corp. 2020, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -171,7 +171,9 @@ class C4DFilterPanelComposite extends MediaQueryMixin(
           currentGroup
             ?.querySelectorAll(`${c4dPrefix}-filter-panel-input-select`)
             .forEach((inputSelect) => {
-              if (inputSelect === e) return;
+              if (inputSelect === e) {
+                return;
+              }
               this._selectedValues = this._selectedValues.filter(
                 (str) => str !== inputSelect.getAttribute('header-value')
               );
@@ -284,7 +286,7 @@ class C4DFilterPanelComposite extends MediaQueryMixin(
    * Sets the heading text, to be composed with the current count.
    */
   @property()
-  _heading: string = '';
+  _heading = '';
 
   /**
    * sets the selected values into an array
@@ -339,6 +341,7 @@ class C4DFilterPanelComposite extends MediaQueryMixin(
    * Handles `slotchange` event.
    *
    * @param event The event.
+   * @param event.target The event target.
    */
   protected _handleSlotChange({ target }: Event) {
     this._contents = (target as HTMLSlotElement)
@@ -380,6 +383,7 @@ class C4DFilterPanelComposite extends MediaQueryMixin(
    * Handles `slotchange` event for the heading slot.
    *
    * @param event The event.
+   * @param event.target The event target.
    */
   protected _handleHeadingSlotChange({ target }: Event) {
     this._setHeadingFromSlot(target as HTMLSlotElement);

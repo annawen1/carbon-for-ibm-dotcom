@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2022, 2023
+ * Copyright IBM Corp. 2022, 2024
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -37,7 +37,7 @@ class C4DPricingTable extends HostListenerMixin(
   highlightClass = 'highlighted';
 
   @property()
-  highlightGap: number = 0;
+  highlightGap = 0;
 
   /**
    * This table's C4DPricingTableHead node.

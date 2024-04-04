@@ -55,7 +55,6 @@ umbrella.
     - [Seeing if a particular method has been called or a particular event has been fired](#seeing-if-a-particular-method-has-been-called-or-a-particular-event-has-been-fired)
   - [Defining mocks](#defining-mocks)
   - [Restoring state](#restoring-state)
-- [RTL support](#rtl-support)
 - [Storybook CSF integration](#storybook-csf-integration)
 - [License header](#license-header-1)
 - [Focus wrapping](#focus-wrapping)
@@ -202,6 +201,12 @@ There are some common behaviors in CTA components that are implemented by
   attribute of `<a>` for `external` CTA types.
 - [Use a hash link](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/v1.15.0-rc.0/packages/web-components/src/component-mixins/cta/cta.ts#L113-L122)
   for `video` CTA types.
+- Trigger a CTA video on page load using a `#cta-video-[video-id]` URL fragment.
+  For any page that includes a CTA component composed with `CTAMixin`, the CTA
+  will look for a URL fragment following the pattern `#cta-video-[video-id]`,
+  where `[video-id]` is the video id configured for the component. If there is a
+  match, the CTA will automatically be triggered, which in most cases will open
+  a lightbox and begin video playback (subject to browser auto-play policies).
 
 ### Video CTA
 
@@ -776,47 +781,6 @@ to clean up event handlers after tests. This way, we can attach events with
 ([`events.on(element, eventName, eventHandler)`](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/v1.15.0/packages/web-components/src/components/expressive-modal/__tests__/expressive-modal.test.ts#L232))
 and clean them up with
 ([`events.reset()`](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/v1.15.0/packages/web-components/src/components/expressive-modal/__tests__/expressive-modal.test.ts#L264)).
-
-## RTL support
-
-While CSS
-[logical properties and values](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties)
-allow us to support LTR and RTL in one codebase, there are several key
-properties that are not yet supported by some browsers, for example
-[`inset-inline-start`](https://developer.mozilla.org/en-US/docs/Web/CSS/inset-inline-start).
-
-We could use the `dir` attribute selector, but it causes problems with selector
-specificity between direction-specific CSS rulesets vs. non-direction-specific
-CSS rulesets.
-
-To deal with this problem, `@carbon/ibmdotcom-web-components` generates seprate
-CSS for LTR and RTL in its build process.
-
-The build process for the NPM package generates an
-[RTL version](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/v1.15.0/packages/web-components/gulp-tasks/build.js#L80)
-of CSS files as
-[`*.rtl.css.js`](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/v1.15.0/packages/web-components/gulp-tasks/build.js#L90),
-in addition to the LTR version. It also generates RTL version of
-[pre-built bundle](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/v1.15.0/packages/web-components/tools/get-rollup-config.js#L65-L67)
-as
-[`ibmdotcom-web-components-dotcom-shell.rtl.min.js`](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/v1.15.0/packages/web-components/gulp-tasks/build.js#L120).
-
-The development environment looks at the `STORYBOOK_USE_RTL` environment
-variable to determine the
-[`dir`](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/v1.15.0/packages/web-components/.storybook/config.ts#L24-L26)
-attribute of `<html>`, while also choosing either the LTR or RTL version of the
-[CSS build](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/v1.15.0/packages/web-components/.storybook/webpack.config.js#L136)
-to use.
-
-Both of the above use [RTLCSS](https://rtlcss.com) to generate the RTL version.
-RTLCSS has [control](https://rtlcss.com/learn/usage-guide/control-directives/)
-and [value](https://rtlcss.com/learn/usage-guide/value-directives/) directives
-that `@carbon/ibmdotcom-web-components`
-[utilizes](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/v1.15.0/packages/web-components/src/components/masthead/masthead.scss#L347-L356).
-
-See the usage
-[documentation](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/v1.15.0/packages/web-components/docs/enable-rtl.md)
-for more information about the RTL version of the CSS.
 
 ## Storybook CSF integration
 
