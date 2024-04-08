@@ -588,7 +588,7 @@ $feature-flags: (
     }
 
     &[size='large'] {
-      .dds-ce--card__footer ::slotted(svg[slot='icon']) {
+      .#{$c4d-prefix}-ce--card__footer ::slotted(svg[slot='icon']) {
         @include breakpoint(max) {
           block-size: $spacing-10;
           inline-size: $spacing-10;

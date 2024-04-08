@@ -30,6 +30,10 @@
     ::slotted(#{$c4d-prefix}-leadspace-block-content) {
       padding: 0;
     }
+
+    .#{$prefix}--content-layout ::slotted(*:not([slot])) {
+      margin: 0;
+    }
   }
 
   :host(#{$c4d-prefix}-leadspace-block[border]) {

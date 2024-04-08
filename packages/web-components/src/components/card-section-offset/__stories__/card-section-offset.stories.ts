@@ -56,9 +56,7 @@ const defaultCardGroupItem = html`
       Lorem ipsum dolor sit amet, habeo iisque eum ex. Vel postea singulis
       democritum ex. Illud ullum graecis
     </p>
-    <c4d-card-cta-footer slot="footer">
-      ${ArrowRight20({ slot: 'icon' })}
-    </c4d-card-cta-footer>
+    <c4d-card-footer> ${ArrowRight20({ slot: 'icon' })} </c4d-card-footer>
   </c4d-card-group-item>
 `;
 

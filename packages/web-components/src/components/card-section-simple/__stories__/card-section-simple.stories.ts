@@ -34,7 +34,7 @@ const cardGroupItems = (withImages) => {
         ultricies est. Mauris iaculis eget dolor nec hendrerit. Phasellus at
         elit sollicitudin, sodales nulla quis, consequat libero.
       </p>
-      <c4d-card-cta-footer slot="footer"></c4d-card-cta-footer>
+      <c4d-card-footer></c4d-card-footer>
     </c4d-card-group-item>
   `;
 };
@@ -59,9 +59,9 @@ export const Default = (args) => {
                 color-scheme="inverse"
                 cta-type="local">
                 <c4d-card-heading>Top level card link</c4d-card-heading>
-                <c4d-card-cta-footer
+                <c4d-card-footer
                   slot="footer"
-                  color-scheme="inverse"></c4d-card-cta-footer>
+                  color-scheme="inverse"></c4d-card-footer>
               </c4d-card-group-item>
             `
           : ``}

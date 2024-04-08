@@ -142,7 +142,7 @@ export const Default = (args) => {
               cta-type=${ctaType}
               href=${hrefsForType[ctaType]}>
               <c4d-card-link-heading>Lorem ipsum dolor</c4d-card-link-heading>
-              <c4d-card-cta-footer></c4d-card-cta-footer>
+              <c4d-card-footer></c4d-card-footer>
             </c4d-card-link-cta>
           `}
     </c4d-content-block-segmented>
@@ -227,7 +227,7 @@ export const withLinkList = (args) => {
               cta-type=${ctaType}
               href=${hrefsForType[ctaType]}>
               <c4d-card-link-heading>Lorem ipsum dolor</c4d-card-link-heading>
-              <c4d-card-cta-footer></c4d-card-cta-footer>
+              <c4d-card-footer></c4d-card-footer>
             </c4d-card-link-cta>
           `}
     </c4d-content-block-segmented>

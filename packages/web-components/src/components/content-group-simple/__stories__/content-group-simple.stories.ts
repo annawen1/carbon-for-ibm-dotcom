@@ -143,7 +143,7 @@ export const Default = (args) => {
         cta-type="${ifDefined(ctaType)}"
         href="${ifDefined(href)}">
         <c4d-card-link-heading>${ctaCopy}</c4d-card-link-heading>
-        <c4d-card-cta-footer></c4d-card-cta-footer>
+        <c4d-card-footer></c4d-card-footer>
       </c4d-card-link-cta>
     </c4d-content-group-simple>
   `;

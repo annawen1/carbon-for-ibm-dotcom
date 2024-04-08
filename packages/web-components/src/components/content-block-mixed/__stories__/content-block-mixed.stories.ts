@@ -235,7 +235,7 @@ export const Default = (args) => {
           <c4d-card-link-heading
             >Lorem ipsum dolor sit amet</c4d-card-link-heading
           >
-          <c4d-card-cta-footer></c4d-card-cta-footer>
+          <c4d-card-footer></c4d-card-footer>
         </c4d-card-link-cta>
       </c4d-content-group-simple>
     </c4d-content-block-mixed>
@@ -339,7 +339,7 @@ export const WithLinkList = (args) => {
           <c4d-card-link-heading
             >Lorem ipsum dolor sit amet</c4d-card-link-heading
           >
-          <c4d-card-cta-footer></c4d-card-cta-footer>
+          <c4d-card-footer></c4d-card-footer>
         </c4d-card-link-cta>
       </c4d-content-group-simple>
       <c4d-link-list type="default" slot="complementary">
