@@ -226,7 +226,7 @@ class C4DContentBlock extends StableSelectorMixin(LitElement) {
 
   render() {
     return html`
-      <div class="${classMap(this._getContainerClasses())}">
+      <div class="${this._getContainerClasses()}">
         ${this._renderHeading()}${this._renderBody()}${this._renderComplementary()}
       </div>
     `;
