@@ -104,7 +104,7 @@ class C4DLanguageSelectorDesktop extends HostListenerMixin(C4DComboBox) {
    *
    * @param item that was selected
    */
-  protected _handleUserInitiatedSelectItem(item?: CDSComboBoxItem) {
+  protected _handleUserInitiatedSelectItem(item?: CDSComboBoxItem | any) {
     if (item && !this._selectionShouldChange(item)) {
       // Escape hatch for `shouldUpdate()` logic that updates `._filterInputValue()` when selection changes,
       // given we want to update the `<input>` and close the dropdown even if selection doesn't update.
@@ -114,11 +114,11 @@ class C4DLanguageSelectorDesktop extends HostListenerMixin(C4DComboBox) {
       // 3. Re-select the 2nd item in combo box drop down,
       //    the `<input>` has to updated with the 2nd item and the dropdown should be closed,
       //    even if there is no change in the selected value
-      this._filterInputValue = item.textContent || '';
+      this._filterInputValue = (item as any).textContent || '';
       this.open = false;
       this.requestUpdate();
     }
-    this._lastValidLang = item?.textContent as string;
+    this._lastValidLang = (item as any)?.textContent as string;
     (item as CDSComboBoxItem).selected = true;
     super._handleUserInitiatedSelectItem(item);
   }
