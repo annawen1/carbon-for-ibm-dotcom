@@ -17,7 +17,6 @@ import '../../cta/index';
 import '../../image/index';
 import '../index';
 import styles from './carousel.stories.scss?lit';
-import readme from './README.stories.mdx';
 
 import imgLg2x1 from '../../../../.storybook/storybook-images/assets/720/fpo--2x1--720x360--005.jpg';
 import imgLg4x3 from '../../../../.storybook/storybook-images/assets/720/fpo--4x3--720x540--004.jpg';
@@ -82,17 +81,16 @@ const CardWithVideo = ({ copy = copyDefault, href = hrefDefault } = {}) => html`
   </c4d-video-cta-container>
 `;
 
-export const Default = () => {
-  return html`
+export const Default = {
+  render: () => html`
     ${Card()}${Card({ copy: copyOdd })}${CardWithLongHeading()}${Card({
       copy: copyOdd,
     })}${Card()}
-  `;
-  // }
+  `
 };
 
-export const CardsWithImages = () => {
-  return html`
+export const CardsWithImages = {
+  render: () => html`
     ${Card({ image: imgLg2x1 })}${Card({
       image: imgLg2x1,
       copy: copyOdd,
@@ -100,27 +98,27 @@ export const CardsWithImages = () => {
       image: imgLg2x1,
       copy: copyOdd,
     })}${Card({ image: imgLg2x1 })}
-  `;
+  `
 };
 
-export const CardsWithVideos = () => {
-  return html`
+export const CardsWithVideos = {
+  render: () => html`
     ${CardWithVideo({ href: '0_ibuqxqbe' })}${CardWithVideo({
       href: '0_ibuqxqbe',
     })}${CardWithVideo({ href: '0_ibuqxqbe' })}${CardWithVideo({
       href: '0_ibuqxqbe',
     })}
-  `;
+  `
 };
 
-export const CardsWithMedia = () => {
-  return html`
+export const CardsWithMedia = {
+  render: () => html`
     ${Card({ image: imgLg4x3 })}${CardWithVideo({
       href: '0_ibuqxqbe',
     })}${Card({ image: imgLg4x3 })}${CardWithVideo({
       href: '0_ibuqxqbe',
     })}${Card({ image: imgLg4x3 })}${CardWithVideo({ href: '0_ibuqxqbe' })}
-  `;
+  `
 };
 
 export default {
@@ -140,15 +138,6 @@ export default {
     },
   ],
   parameters: {
-    ...readme.parameters,
     hasStoryPadding: true,
-    propsSet: {
-      default: {
-        Carousel: {
-          cardSize: 4,
-          mediaType: 'none',
-        },
-      },
-    },
   },
 };
