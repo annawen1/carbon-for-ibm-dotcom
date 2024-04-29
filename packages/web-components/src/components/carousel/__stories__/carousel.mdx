@@ -1,11 +1,9 @@
-import {
-  Preview,
-  Props,
-  Description,
-  Story,
-} from '@storybook/addon-docs/blocks';
+import { ArgTypes, Markdown, Meta } from '@storybook/blocks';
 import contributing from '../../../../../../docs/contributing-license.md?raw';
 import { cdnJs, cdnCss } from '../../../globals/internal/storybook-cdn';
+import * as CarouselStories from './carousel.stories';
+
+<Meta of={CarouselStories} />
 
 # Carousel
 
@@ -103,7 +101,7 @@ announced.
 
 ## Props
 
-<Props of="c4d-carousel" />
+<ArgTypes of="c4d-carousel" />
 
 ## Stable selectors
 
@@ -115,4 +113,4 @@ to see how Web Components selector and `data-autoid` should be used.
 | ----------------------- | ---------------------- | ----------- |
 | `<c4d-carousel>`        | N/A                    | Component   |
 
-<Description markdown={contributing} />
+<Markdown>{contributing}</Markdown>

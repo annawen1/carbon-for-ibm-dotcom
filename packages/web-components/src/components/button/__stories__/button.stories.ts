@@ -95,6 +95,11 @@ export const Default = {
 
 const meta = {
   title: 'Components/Button',
+  parameters: {
+    controls: {
+      exclude:/href|copy/g
+    }
+  },
 };
 
 export default meta;

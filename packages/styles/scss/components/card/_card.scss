@@ -95,27 +95,6 @@
       }
     }
 
-    &:not([disabled]) .#{$prefix}--card.#{$prefix}--tile {
-      padding: 0;
-      transition: $duration-moderate-01 motion(standard, productive);
-
-      &:hover {
-        #{$c4d-prefix}-image,
-        ::slotted(#{$c4d-prefix}-image),
-        ::slotted(#{$c4d-prefix}-card-cta-image) {
-          &::after {
-            position: absolute;
-            background: $overlay;
-            block-size: 100%;
-            content: '';
-            inline-size: 100%;
-            inset-block-start: 0;
-            opacity: 16%;
-          }
-        }
-      }
-    }
-
     .#{$prefix}--card__wrapper {
       display: flex;
       flex: 1;
@@ -163,6 +142,34 @@
     }
   }
 
+  :host(#{$c4d-prefix}-card:not([disabled])),
+  :host(#{$c4d-prefix}-card-cta:not([disabled])),
+  :host(#{$c4d-prefix}-card-in-card:not([disabled])),
+  :host(#{$c4d-prefix}-card-group-item:not([disabled])),
+  :host(#{$c4d-prefix}-content-group-cards-item:not([disabled])) {
+
+    &:not([disabled]) .#{$prefix}--card.#{$prefix}--tile {
+      padding: 0;
+      transition: $duration-moderate-01 motion(standard, productive);
+  
+      &:hover {
+        #{$c4d-prefix}-image,
+        ::slotted(#{$c4d-prefix}-image),
+        ::slotted(#{$c4d-prefix}-card-cta-image) {
+          &::after {
+            position: absolute;
+            background: $overlay;
+            block-size: 100%;
+            content: '';
+            inline-size: 100%;
+            inset-block-start: 0;
+            opacity: 16%;
+          }
+        }
+      }
+    }
+  }
+
   // Card with pictogram placement style
   :host(#{$c4d-prefix}-card-group-item),
   :host(#{$c4d-prefix}-card-in-card),
@@ -185,7 +192,44 @@
       }
     }
 
-    &[pictogram] .#{$prefix}--card {
+    ::slotted(svg[slot='pictogram']) {
+      fill: currentColor;
+      @include breakpoint(md) {
+        margin-inline-start: 0;
+      }
+      @include breakpoint(sm) {
+        margin-inline-start: $spacing-05;
+      }
+    }
+
+    .#{$prefix}--card__copy {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-05;
+    }
+
+    ::slotted(div) {
+      /* stylelint-disable declaration-no-important */
+      // need the !important to prevent CSS reset styles from overwritting margin for tags
+      margin-inline-start: -$spacing-02 !important;
+    }
+  }
+
+  :host(#{$c4d-prefix}-card-group-item[color-scheme='inverse']),
+  :host(#{$c4d-prefix}-card-in-card[color-scheme='inverse']),
+  :host(#{$c4d-prefix}-card-cta[color-scheme='inverse']),
+  :host(#{$c4d-prefix}-card[color-scheme='inverse']) {
+    .#{$prefix}--card svg,
+    ::slotted(svg[slot='pictogram']) {
+      color: $link-inverse;
+    }
+  }
+
+  :host(#{$c4d-prefix}-card-group-item[pictogram]),
+  :host(#{$c4d-prefix}-card-in-card[pictogram]),
+  :host(#{$c4d-prefix}-card-cta[pictogram]),
+  :host(#{$c4d-prefix}-card[pictogram]) {
+    .#{$prefix}--card {
       ::slotted(#{$c4d-prefix}-card-heading) {
         padding-block-start: 0;
       }
@@ -213,66 +257,45 @@
         inset-inline-end: $spacing-05;
       }
     }
+  }
 
-    &[pictogram] {
-      &[pictogram-placement='top'] .#{$prefix}--card {
-        ::slotted(#{$c4d-prefix}-card-heading) {
-          align-items: flex-end;
-          margin-block: auto 0;
-        }
-
-        .#{$prefix}--card__copy {
-          margin-block-start: $spacing-07;
-        }
-
-        ::slotted(svg[slot='pictogram']) {
-          margin-block-end: $spacing-07;
-        }
+  :host(#{$c4d-prefix}-card-group-item[pictogram][pictogram-placement='top']),
+  :host(#{$c4d-prefix}-card-in-card[pictogram][pictogram-placement='top']),
+  :host(#{$c4d-prefix}-card-cta[pictogram][pictogram-placement='top']),
+  :host(#{$c4d-prefix}-card[pictogram][pictogram-placement='top']) {
+    .#{$prefix}--card {
+      ::slotted(#{$c4d-prefix}-card-heading) {
+        align-items: flex-end;
+        margin-block: auto 0;
       }
 
-      &[pictogram-placement='bottom'] .#{$prefix}--card {
-        ::slotted(#{$c4d-prefix}-card-heading) {
-          align-items: flex-start;
-        }
-
-        .#{$prefix}--card__copy {
-          margin-block-end: $spacing-07;
-        }
-
-        ::slotted(svg[slot='pictogram']) {
-          align-items: flex-end;
-          margin-block-start: auto;
-        }
+      .#{$prefix}--card__copy {
+        margin-block-start: $spacing-07;
       }
-    }
 
-    ::slotted(svg[slot='pictogram']) {
-      fill: currentColor;
-      @include breakpoint(md) {
-        margin-inline-start: 0;
-      }
-      @include breakpoint(sm) {
-        margin-inline-start: $spacing-05;
-      }
-    }
-
-    &[color-scheme='inverse'] {
-      .#{$prefix}--card svg,
       ::slotted(svg[slot='pictogram']) {
-        color: $link-inverse;
+        margin-block-end: $spacing-07;
       }
     }
+  }
 
-    .#{$prefix}--card__copy {
-      display: flex;
-      flex-direction: column;
-      gap: $spacing-05;
-    }
+  :host(#{$c4d-prefix}-card-group-item[pictogram][pictogram-placement='bottom']),
+  :host(#{$c4d-prefix}-card-in-card[pictogram][pictogram-placement='bottom']),
+  :host(#{$c4d-prefix}-card-cta[pictogram][pictogram-placement='bottom']),
+  :host(#{$c4d-prefix}-card[pictogram][pictogram-placement='bottom']) {
+    .#{$prefix}--card {
+      ::slotted(#{$c4d-prefix}-card-heading) {
+        align-items: flex-start;
+      }
 
-    ::slotted(div) {
-      /* stylelint-disable declaration-no-important */
-      // need the !important to prevent CSS reset styles from overwritting margin for tags
-      margin-inline-start: -$spacing-02 !important;
+      .#{$prefix}--card__copy {
+        margin-block-end: $spacing-07;
+      }
+
+      ::slotted(svg[slot='pictogram']) {
+        align-items: flex-end;
+        margin-block-start: auto;
+      }
     }
   }
 
@@ -305,94 +328,95 @@
   }
 
   // static card
+  :host(#{$c4d-prefix}-card:not([href])),
+  :host(#{$c4d-prefix}-card-group-item:not([href])) {
+    .#{$prefix}--card .#{$prefix}--card__copy {
+      margin-block-end: $spacing-01;
+    }
 
-  :host(#{$c4d-prefix}-card),
-  :host(#{$c4d-prefix}-card-group-item) {
-    &:not([href]) {
-      .#{$prefix}--card .#{$prefix}--card__copy {
-        margin-block-end: $spacing-01;
-      }
-
-      .#{$prefix}--card.#{$prefix}--tile ::slotted(#{$c4d-prefix}-image) {
-        &::after {
-          display: none;
-        }
-      }
-
-      &:focus-within ::slotted(#{$c4d-prefix}-image) {
-        z-index: 0;
-      }
-
-      ::slotted(#{$c4d-prefix}-card-heading) {
-        margin-block-end: auto;
-        padding-block-end: $spacing-10;
-      }
-
-      ::slotted(#{$c4d-prefix}-card-footer) {
-        display: inline-flex;
-        margin-block-start: $spacing-07;
-
-        &::after {
-          position: relative;
-        }
+    .#{$prefix}--card.#{$prefix}--tile ::slotted(#{$c4d-prefix}-image) {
+      &::after {
+        display: none;
       }
     }
 
-    &[color-scheme='light'] {
-      &,
-      &:hover {
-        .#{$prefix}--card__wrapper {
-          background-color: $layer-02;
-          transition: $duration-moderate-01 motion(standard, productive);
-        }
+    &:focus-within ::slotted(#{$c4d-prefix}-image) {
+      z-index: 0;
+    }
+
+    ::slotted(#{$c4d-prefix}-card-heading) {
+      margin-block-end: auto;
+      padding-block-end: $spacing-10;
+    }
+
+    ::slotted(#{$c4d-prefix}-card-footer) {
+      display: inline-flex;
+      margin-block-start: $spacing-07;
+
+      &::after {
+        position: relative;
       }
+    }
+  }
 
-      &[href] {
-        :hover {
-          .#{$prefix}--card__wrapper {
-            background-color: $background-hover;
-          }
-        }
 
-        &:active,
-        a:active {
-          outline: none;
-        }
+  :host(#{$c4d-prefix}-card[color-scheme='light']),
+  :host(#{$c4d-prefix}-card-group-item[color-scheme='light']) {
+    &,
+    &:hover {
+      .#{$prefix}--card__wrapper {
+        background-color: $layer-02;
+        transition: $duration-moderate-01 motion(standard, productive);
+      }
+    }
+  }
+
+  :host(#{$c4d-prefix}-card[color-scheme='light'][href]),
+  :host(#{$c4d-prefix}-card-group-item[color-scheme='light'][href]) {
+    :hover {
+      .#{$prefix}--card__wrapper {
+        background-color: $background-hover;
       }
     }
 
-    // Logo card
-    &[logo] {
-      .#{$prefix}--card {
+    &:active,
+    a:active {
+      outline: none;
+    }
+  }
+
+  :host(#{$c4d-prefix}-card[logo]),
+  :host(#{$c4d-prefix}-card-group-item[logo]) {
+    .#{$prefix}--card {
+      background-color: $layer-02;
+    }
+
+    .#{$prefix}--card__copy {
+      margin-block-end: $spacing-05;
+    }
+
+    &:hover {
+      border-color: $toggle-off;
+
+      .#{$prefix}--card__wrapper {
         background-color: $layer-02;
       }
-
-      .#{$prefix}--card__copy {
-        margin-block-end: $spacing-05;
-      }
-
-      &:hover {
-        border-color: $toggle-off;
-
-        .#{$prefix}--card__wrapper {
-          background-color: $layer-02;
-        }
-      }
-
-      &:active {
-        border-color: $border-inverse;
-      }
-
-      ::slotted(#{$c4d-prefix}-card-footer) {
-        block-size: 0;
-      }
     }
 
-    &[href][logo] {
-      &:hover {
-        .#{$prefix}--card__wrapper {
-          background-color: $layer-02;
-        }
+    &:active {
+      border-color: $border-inverse;
+    }
+
+    ::slotted(#{$c4d-prefix}-card-footer) {
+      block-size: 0;
+    }
+  }
+
+  :host(#{$c4d-prefix}-card[href][logo]),
+  :host(#{$c4d-prefix}-card-group-item[href][logo]) {
+    &:hover {
+      .#{$prefix}--card__wrapper {
+        background-color: $layer-02;
       }
     }
   }
@@ -510,12 +534,14 @@
         color: $link-primary-hover;
       }
     }
+  }
 
-    &[color-scheme='inverse']
-      .#{$prefix}--link-with-icon.#{$prefix}--link-with-icon--inline-icon:not(
-        .#{$prefix}--link--disabled
-      ) {
-      color: $link-inverse;
+  :host(#{$c4d-prefix}-card-footer[color-scheme='inverse']),
+  :host(#{$c4d-prefix}-card-cta-footer[color-scheme='inverse']) {
+    .#{$prefix}--link-with-icon.#{$prefix}--link-with-icon--inline-icon:not(
+      .#{$prefix}--link--disabled
+    ) {
+    color: $link-inverse;
     }
   }
 
@@ -548,8 +574,8 @@
     }
   }
 
-  :host(#{$c4d-prefix}-card)[color-scheme='inverse']:not([disabled]),
-  :host(#{$c4d-prefix}-card-group-item)[color-scheme='inverse']:not([disabled])
+  :host(#{$c4d-prefix}-card[color-scheme='inverse']:not([disabled])),
+  :host(#{$c4d-prefix}-card-group-item[color-scheme='inverse']:not([disabled]))
     .#{$prefix}--card {
     .#{$prefix}--tile {
       border-color: $background-inverse;
@@ -614,9 +640,9 @@
     margin-block-end: 0;
   }
 
-  :host(#{$c4d-prefix}-card)[color-scheme='inverse'],
-  :host(#{$c4d-prefix}-card-group-item)[color-scheme='inverse'],
-  :host(#{$c4d-prefix}-feature-section-card-link)[color-scheme='inverse'],
+  :host(#{$c4d-prefix}-card[color-scheme='inverse']),
+  :host(#{$c4d-prefix}-card-group-item[color-scheme='inverse']),
+  :host(#{$c4d-prefix}-feature-section-card-link[color-scheme='inverse']),
   .#{$prefix}--card-group__card {
     ::slotted(#{$c4d-prefix}-card-eyebrow),
     ::slotted(#{$c4d-prefix}-card-heading),

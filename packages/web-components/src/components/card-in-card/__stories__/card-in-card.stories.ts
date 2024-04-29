@@ -14,18 +14,57 @@ import '../../cta/card-cta-footer';
 import '../../cta/video-cta-container';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { boolean } from '@storybook/addon-knobs';
 
 import imgXlg16x9 from '../../../../.storybook/storybook-images/assets/1312/fpo--16x9--1312x738--005.jpg';
 import imgMd16x9 from '../../../../.storybook/storybook-images/assets/960/fpo--16x9--960x540--005.jpg';
 import imgSm4x3 from '../../../../.storybook/storybook-images/assets/480/fpo--4x3--480x360--005.jpg';
 
-import readme from './README.stories.mdx';
-import textNullable from '../../../../.storybook/knob-text-nullable';
+const defaultArgs = {
+  video: false,
+  alt: 'Image alt text',
+  defaultSrc: imgSm4x3,
+  heading: 'Standard Bank Group prepares to embrace Africa’s AI opportunity',
+  href: 'https://example.com',
+  eyebrow: 'Label'
+};
 
-export const Default = (args) => {
-  const { video, eyebrow, heading, defaultSrc, alt, href } =
-    args?.['c4d-card-in-card'] ?? {};
+const controls = {
+  video: {
+    control: 'boolean',
+    description: 'Video'
+  },
+  alt: {
+    control: 'text',
+    description: 'Image alt text (alt)',
+    if: { arg: 'video', eq: false }
+  },
+  defaultSrc: {
+    control: 'text',
+    description: 'Image src (defaultSrc)',
+    if: { arg: 'video', eq: false }
+  },
+  heading: {
+    control: 'text',
+    description: 'Card Heading (heading)',
+    if: { arg: 'video', eq: false }
+  },
+  href: {
+    control: 'text',
+    description: 'Card Href (href)',
+    if: { arg: 'video', eq: false }
+  },
+  eyebrow: {
+    control: 'text',
+    description: 'Card Eyebrow (eyebrow)'
+  }
+};
+
+
+export const Default = {
+  args: defaultArgs,
+  argTypes: controls,
+  render: ( {video, eyebrow, heading, defaultSrc, alt, href }) => {
+
   if (video) {
     const card = document.querySelector('c4d-card') as any;
     const videoCopy = card?.videoTitle;
@@ -58,7 +97,8 @@ export const Default = (args) => {
       <c4d-card-footer></c4d-card-footer>
     </c4d-card-in-card>
   `;
-};
+}
+}
 
 export default {
   title: 'Components/Card in card',
@@ -72,48 +112,9 @@ export default {
     `,
   ],
   parameters: {
-    ...readme.parameters,
     hasStoryPadding: true,
-    knobs: {
-      'c4d-card-in-card': () => {
-        const video = boolean('video', false);
-        const alt = video
-          ? undefined
-          : textNullable('Image alt text (alt):', 'Image alt text');
-        const defaultSrc = video
-          ? undefined
-          : textNullable('Image src (defaultSrc):', imgSm4x3);
-        const heading = video
-          ? undefined
-          : textNullable(
-              'Card Heading (heading):',
-              'Standard Bank Group prepares to embrace Africa’s AI opportunity'
-            );
-        const href = video
-          ? undefined
-          : textNullable('Card Href (href):', 'https://example.com');
-        return {
-          video,
-          alt,
-          defaultSrc,
-          heading,
-          href,
-          eyebrow: textNullable('Card Eyebrow (eyebrow):', 'Label'),
-        };
-      },
-    },
-    propsSet: {
-      default: {
-        'c4d-card-in-card': {
-          video: false,
-          alt: 'Image alt text',
-          defaultSrc: imgSm4x3,
-          heading:
-            'Standard Bank Group prepares to embrace Africa’s AI opportunity',
-          href: 'https://example.com',
-          eyebrow: 'Label',
-        },
-      },
-    },
+    controls: {
+      exclude:/defaultSrc|eyebrow|heading|href|copy|alt/g
+    }
   },
 };
