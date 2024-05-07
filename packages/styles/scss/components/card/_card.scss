@@ -147,11 +147,10 @@
   :host(#{$c4d-prefix}-card-in-card:not([disabled])),
   :host(#{$c4d-prefix}-card-group-item:not([disabled])),
   :host(#{$c4d-prefix}-content-group-cards-item:not([disabled])) {
-
     &:not([disabled]) .#{$prefix}--card.#{$prefix}--tile {
       padding: 0;
       transition: $duration-moderate-01 motion(standard, productive);
-  
+
       &:hover {
         #{$c4d-prefix}-image,
         ::slotted(#{$c4d-prefix}-image),
@@ -279,7 +278,9 @@
     }
   }
 
-  :host(#{$c4d-prefix}-card-group-item[pictogram][pictogram-placement='bottom']),
+  :host(
+      #{$c4d-prefix}-card-group-item[pictogram][pictogram-placement='bottom']
+    ),
   :host(#{$c4d-prefix}-card-in-card[pictogram][pictogram-placement='bottom']),
   :host(#{$c4d-prefix}-card-cta[pictogram][pictogram-placement='bottom']),
   :host(#{$c4d-prefix}-card[pictogram][pictogram-placement='bottom']) {
@@ -358,7 +359,6 @@
       }
     }
   }
-
 
   :host(#{$c4d-prefix}-card[color-scheme='light']),
   :host(#{$c4d-prefix}-card-group-item[color-scheme='light']) {
@@ -539,9 +539,9 @@
   :host(#{$c4d-prefix}-card-footer[color-scheme='inverse']),
   :host(#{$c4d-prefix}-card-cta-footer[color-scheme='inverse']) {
     .#{$prefix}--link-with-icon.#{$prefix}--link-with-icon--inline-icon:not(
-      .#{$prefix}--link--disabled
-    ) {
-    color: $link-inverse;
+        .#{$prefix}--link--disabled
+      ) {
+      color: $link-inverse;
     }
   }
 
