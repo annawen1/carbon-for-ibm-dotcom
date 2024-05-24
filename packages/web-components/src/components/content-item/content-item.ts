@@ -137,6 +137,19 @@ class C4DContentItem extends StableSelectorMixin(LitElement) {
     `;
   }
 
+  updated() {
+    if (this._hasFooter) {
+      this.querySelector(`${c4dPrefix}-content-item-copy`)?.setAttribute(
+        'has-cta',
+        ''
+      );
+    } else {
+      this.querySelector(`${c4dPrefix}-content-item-copy`)?.removeAttribute(
+        'has-cta'
+      );
+    }
+  }
+
   render() {
     const { horizontal, _hasStatistic: hasStatistic, _hasLogo: hasLogo } = this;
     const horizontalClass = classMap({
