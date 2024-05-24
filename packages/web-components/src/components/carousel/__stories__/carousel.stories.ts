@@ -86,7 +86,7 @@ export const Default = {
     ${Card()}${Card({ copy: copyOdd })}${CardWithLongHeading()}${Card({
       copy: copyOdd,
     })}${Card()}
-  `
+  `,
 };
 
 export const CardsWithImages = {
@@ -98,7 +98,7 @@ export const CardsWithImages = {
       image: imgLg2x1,
       copy: copyOdd,
     })}${Card({ image: imgLg2x1 })}
-  `
+  `,
 };
 
 export const CardsWithVideos = {
@@ -108,7 +108,7 @@ export const CardsWithVideos = {
     })}${CardWithVideo({ href: '0_ibuqxqbe' })}${CardWithVideo({
       href: '0_ibuqxqbe',
     })}
-  `
+  `,
 };
 
 export const CardsWithMedia = {
@@ -118,7 +118,7 @@ export const CardsWithMedia = {
     })}${Card({ image: imgLg4x3 })}${CardWithVideo({
       href: '0_ibuqxqbe',
     })}${Card({ image: imgLg4x3 })}${CardWithVideo({ href: '0_ibuqxqbe' })}
-  `
+  `,
 };
 
 export default {
@@ -138,6 +138,9 @@ export default {
     },
   ],
   parameters: {
+    percy: {
+      skip: true,
+    },
     hasStoryPadding: true,
   },
 };

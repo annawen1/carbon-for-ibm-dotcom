@@ -97,8 +97,8 @@ const meta = {
   title: 'Components/Button',
   parameters: {
     controls: {
-      exclude:/href|copy/g
-    }
+      exclude: /href|copy/g,
+    },
   },
 };
 

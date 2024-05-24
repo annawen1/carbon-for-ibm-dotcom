@@ -40,7 +40,7 @@ const defaultArgs = {
   disabled: false,
   eyebrow: 'Industry',
   heading: 'Aerospace and defence',
-  href: "https://example.com",
+  href: 'https://example.com',
   image: false,
   copy: '',
   alt: 'Image alt text',
@@ -75,7 +75,7 @@ const controls = {
   },
   image: {
     control: 'boolean',
-    description: 'Add image'
+    description: 'Add image',
   },
   heading: {
     control: 'text',
@@ -175,7 +175,7 @@ const pictogramDefaultArgs = {
   pictogramPlacement: pictogramPlacements.bottom,
   heading: 'Aerospace and defence',
   href: 'https://example.com',
-  cardStyles: 'none'
+  cardStyles: 'none',
 };
 
 const pictogramControls = {
@@ -200,13 +200,20 @@ const pictogramControls = {
     control: 'select',
     description: 'Card style',
     options: ['Inverse card', 'none'],
-  }
+  },
 };
 
 export const Pictogram = {
   args: pictogramDefaultArgs,
   argTypes: pictogramControls,
-  render: ({ href, heading, copy, tagGroup, pictogramPlacement, cardStyles }) => html`
+  render: ({
+    href,
+    heading,
+    copy,
+    tagGroup,
+    pictogramPlacement,
+    cardStyles,
+  }) => html`
     <c4d-card
       pictogram-placement="${pictogramPlacement}"
       href=${ifDefined(href || undefined)}
@@ -234,7 +241,7 @@ export const Pictogram = {
           18.64h29.28V5c0-0.904-0.735-1.64-1.64-1.64H3C2.096,3.36,1.36,4.096,1.36,5V18.64z" />
       </svg>
     </c4d-card>
-  `
+  `,
 };
 
 const staticDefaultArgs = {
@@ -246,13 +253,13 @@ const staticDefaultArgs = {
   copy: 'Enjoy full SPSS Statistics capabilities including all add-ons. All trial registrants are restricted to one free trial per computer per user.',
   tagGroup: false,
   cta: false,
-  ctaCopy: ''
+  ctaCopy: '',
 };
 
 const staticControls = {
   alt: {
     control: 'text',
-    description: 'Image alt text'
+    description: 'Image alt text',
   },
   defaultSrc: {
     table: {
@@ -261,33 +268,33 @@ const staticControls = {
   },
   image: {
     control: 'boolean',
-    description: 'Add image'
+    description: 'Add image',
   },
   eyebrow: {
     control: 'text',
-    description: 'Eyebrow'
+    description: 'Eyebrow',
   },
   heading: {
     control: 'text',
-    description: 'Heading'
+    description: 'Heading',
   },
   copy: {
     control: 'text',
-    description: 'Body copy'
+    description: 'Body copy',
   },
   tagGroup: {
     control: 'boolean',
-    description: 'Add tags'
+    description: 'Add tags',
   },
   cta: {
     control: 'boolean',
-    description: 'Add CTA'
+    description: 'Add CTA',
   },
   ctaCopy: {
     control: 'text',
     description: 'CTA copy',
-    if: { arg: 'cta', eq: true }
-  }
+    if: { arg: 'cta', eq: true },
+  },
 };
 
 export const Static = {
@@ -325,7 +332,7 @@ export const Static = {
           `
         : ``}
     </c4d-card>
-  `
+  `,
 };
 
 const linkDefaultArgs = {
@@ -336,49 +343,47 @@ const linkDefaultArgs = {
   copy: '',
   alt: 'Image alt text',
   defaultSrc: imgXlg4x3,
-  href: ''
+  href: '',
 };
 
 const linkControls = {
   disabled: {
     control: 'boolean',
-    description: 'Disabled'
+    description: 'Disabled',
   },
   customVideoTitle: {
     control: 'text',
     description: 'Custom video title',
-    if: { arg: 'ctaType', eq: `${CTA_TYPE.VIDEO}` }
+    if: { arg: 'ctaType', eq: `${CTA_TYPE.VIDEO}` },
   },
   ctaType: {
     control: 'select',
     description: 'CTA type (cta-type)',
-    options: typeOptions
+    options: typeOptions,
   },
   heading: {
     control: 'text',
     description: 'Heading',
-    if: { arg: 'ctaType', neq: `${CTA_TYPE.VIDEO}` }
+    if: { arg: 'ctaType', neq: `${CTA_TYPE.VIDEO}` },
   },
   copy: {
     control: 'text',
-    description: 'Body copy'
+    description: 'Body copy',
   },
   alt: {
     control: 'text',
-    description: 'Image alt text'
+    description: 'Image alt text',
   },
   defaultSrc: {
     table: {
-      disable: true
-    }
-
+      disable: true,
+    },
   },
   href: {
     control: 'text',
-    description: knobNamesForType[CTA_TYPE.REGULAR]
-  }
+    description: knobNamesForType[CTA_TYPE.REGULAR],
+  },
 };
-
 
 export const Link = {
   args: linkDefaultArgs,
@@ -412,8 +417,8 @@ export const Link = {
           <c4d-card-footer></c4d-card-footer>
         </c4d-card>
       </c4d-video-cta-container>
-    `
-  }
+    `;
+  },
 };
 
 const logoDefaultArgs = {
@@ -423,49 +428,49 @@ const logoDefaultArgs = {
   eyebrow: 'Microsoft',
   heading: '',
   copy: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-  href: 'https://example.com'
+  href: 'https://example.com',
 };
 
 const logoControls = {
   alt: {
     control: 'text',
-    description: 'Image alt text'
+    description: 'Image alt text',
   },
   defaultSrc: {
     table: {
-      disable: true
-    }
+      disable: true,
+    },
   },
   tagGroup: {
     control: 'boolean',
     description: 'Add tags',
-    group: 'logo'
+    group: 'logo',
   },
   eyebrow: {
     control: 'text',
     description: 'Card Eyebrow',
-    group: 'logo'
+    group: 'logo',
   },
   heading: {
     control: 'text',
     description: 'Card Heading (optional)',
-    group: 'logo'
+    group: 'logo',
   },
   copy: {
     control: 'text',
     description: 'Card body copy',
-    group: 'logo'
+    group: 'logo',
   },
   href: {
     control: 'text',
-    description: 'Href'
-  }
+    description: 'Href',
+  },
 };
 
 export const Logo = {
   args: logoDefaultArgs,
   argTypes: logoControls,
-  render: ({ alt, defaultSrc, eyebrow, heading, href, copy, tagGroup } ) => html`
+  render: ({ alt, defaultSrc, eyebrow, heading, href, copy, tagGroup }) => html`
     <c4d-card logo href=${ifDefined(href || undefined)}>
       <c4d-image-logo
         slot="image"
@@ -478,9 +483,8 @@ export const Logo = {
 
       <c4d-card-footer></c4d-card-footer>
     </c4d-card>
-  `
+  `,
 };
-
 
 export default {
   title: 'Components/Card',
@@ -499,7 +503,7 @@ export default {
   parameters: {
     hasStoryPadding: true,
     controls: {
-      exclude:/defaultSrc|eyebrow|heading|href|copy|alt/g
-    }
+      exclude: /defaultSrc|eyebrow|heading|href|copy|alt/g,
+    },
   },
 };
